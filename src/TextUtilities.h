@@ -6,7 +6,7 @@
 #ifndef IOABSTRACTION_TEXTUTILITIES_H
 #define IOABSTRACTION_TEXTUTILITIES_H
 
-#include <IoLogging.h>
+#include <stdint.h>
 
 /**
  * @file TextUtilities.h
@@ -135,8 +135,8 @@ inline float tcFltAbs(float f1) {
 #define lowByte(x) ((x) & 0xff)
 #define ltoa(a,b,c) itoa(a,b,c)
 # ifndef min
-# define min(x, y) (((x) < (y))?(x):(y))
-# define max(x, y) (((x) > (y))?(x):(y))
+template<class T> void min(T x, T y) { return (((x) < (y))?(x):(y)); }
+template<class T> void max(T x, T y) { return (((x) > (y))?(x):(y)); }
 # endif //TCMENU_MBED_NO_MINMAX
 #endif // IOA_USE_MBED
 

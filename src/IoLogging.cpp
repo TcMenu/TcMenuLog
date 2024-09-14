@@ -54,6 +54,33 @@ const char* prettyLevel(SerLoggingLevel level) {
 
 #ifdef BUILD_FOR_PICO_CMAKE
 PrintfLogger LoggingPort;
+unsigned long millis() {
+    return to_ms_since_boot(get_absolute_time());
+}
+
+unsigned long micros() {
+    return to_us_since_boot(get_absolute_time());
+}
+#endif
+
+#ifdef LOGGING_USES_MBED
+volatile bool timingStarted = false;
+Timer ioaTimer;
+unsigned long millis() {
+    if(!timingStarted) {
+        timingStarted = true;
+        ioaTimer.start();
+    }
+    return ioaTimer.read_ms();
+}
+
+unsigned long micros() {
+    if(!timingStarted) {
+        timingStarted = true;
+        ioaTimer.start();
+    }
+    return (unsigned long) ioaTimer.read_high_resolution_us();
+}
 #endif
 
 #endif

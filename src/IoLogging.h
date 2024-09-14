@@ -46,17 +46,7 @@ enum SerLoggingLevel {
 
 #if defined(__MBED__) && !defined(BUILD_FOR_PICO_CMAKE) && !defined(ARDUINO_ARCH_MBED)
 #define LOGGING_USES_MBED
-#elif !defined(BUILD_FOR_PICO_CMAKE)
-#include <Arduino.h>
-#endif
-
-#ifdef IO_LOGGING_DEBUG
-
-
-/** This uint16_t stores the enabled logging levels, don't use directly */
-extern unsigned int enabledLevels;
-
-#ifdef LOGGING_USES_MBED
+#include <mbed.h>
 
 #include "PrintCompat.h"
 #include <FileHandle.h>
@@ -87,10 +77,14 @@ unsigned long millis();
 #define F(x) x
 #define IOLOG_MBED_PORT_IF_NEEDED(tx, rx) BufferedSerial serPort(tx, rx);MBedLogger LoggingPort(serPort);
 #define IOLOG_START_SERIAL serPort.set_baud(115200);
+unsigned long millis();
+unsigned long micros();
 #elif defined(BUILD_FOR_PICO_CMAKE)
 #include "PrintCompat.h"
-#include <cstring>
+#include <string.h>
+#include <ctype.h>
 #include <pico/time.h>
+#include <hardware/uart.h>
 #ifdef BUILD_PICO_FORCE_UART
 class PrintfLogger : public Print {
 private:
@@ -123,8 +117,9 @@ public:
 };
 #define IOLOG_START_SERIAL stdio_init_all();
 #endif
+unsigned long millis();
+unsigned long micros();
 extern PrintfLogger LoggingPort;
-unsigned long millis(); // available from task manager
 #define F(x) x
 #define IOLOG_MBED_PORT_IF_NEEDED(tx, rx)
 #else
@@ -137,6 +132,12 @@ unsigned long millis(); // available from task manager
 #define IOLOG_START_SERIAL LoggingPort.begin(115200);
 #define IOLOG_MBED_PORT_IF_NEEDED(tx, rx)
 #endif
+
+#ifdef IO_LOGGING_DEBUG
+
+
+/** This uint16_t stores the enabled logging levels, don't use directly */
+extern unsigned int enabledLevels;
 
 const char* prettyLevel(SerLoggingLevel level);
 #define logTimeAndLevel(title, lvl) LoggingPort.print(millis());LoggingPort.print('-');LoggingPort.print(prettyLevel(lvl));LoggingPort.print(':');LoggingPort.print(title)
@@ -215,9 +216,6 @@ inline void serdebugHexDump(const char *title, const void* data, size_t len) { s
 #define serlogHex(lvl, x1, x2)
 
 #define startTaskManagerLogDelegate()
-
-#define IOLOG_START_SERIAL
-#define IOLOG_MBED_PORT_IF_NEEDED(tx, rx)
 
 #define serEnableLevel(l, a)
 #define serLevelEnabled(l) false

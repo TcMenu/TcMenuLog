@@ -3,6 +3,13 @@
  * This product is licensed under an Apache license, see the LICENSE file in the top-level directory.
  */
 
+#ifdef __AVR__
+#include <Arduino.h>
+#else
+#include <cstdint>
+#include <cctype>
+#include <valarray>
+#endif
 #include "TextUtilities.h"
 
 void appendChar(char* str, char val, int len) {
