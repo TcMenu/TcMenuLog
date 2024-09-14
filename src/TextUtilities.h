@@ -6,7 +6,7 @@
 #ifndef IOABSTRACTION_TEXTUTILITIES_H
 #define IOABSTRACTION_TEXTUTILITIES_H
 
-#include <PlatformDetermination.h>
+#include <IoLogging.h>
 
 /**
  * @file TextUtilities.h
