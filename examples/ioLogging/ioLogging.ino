@@ -1,13 +1,13 @@
 /** 
- * Advanced feature of library.
- * 
- * This example shows how to use the very simple logging that's built into IoAbstraction.
- * To enable logging open IoLogging.h in the IoAbstraction directory and uncomment
- * #define IO_LOGGING_DEBUG
+ * This example shows how to use the TcMenu logging framework, to log simple information
+ * to the serial port. It should work on Arduino, mbed and PicoSDK with little to no
+ * adjustment.
+ *
+ * As this example logs output, either define flag `IO_LOGGING_DEBUG` or open IoLogging.h
+ * and uncomment `#define IO_LOGGING_DEBUG` to enable.
  * 
  * This logging is only complied in when the above define is set, if it is not set then
  * the logging is completely removed.
- *
  */
 
 /* The logging levels are below:

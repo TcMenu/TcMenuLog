@@ -1,3 +1,14 @@
+/**
+ * This example shows how to use the text utilities that are packaged with TcMenu logging
+ * framework. It should work on Arduino, mbed and PicoSDK with little to no adjustment.
+ *
+ * As this example logs output, either define flag `IO_LOGGING_DEBUG` or open IoLogging.h
+ * and uncomment `#define IO_LOGGING_DEBUG` to enable.
+ *
+ * This logging is only complied in when the above define is set, if it is not set then
+ * the logging is completely removed.
+ *
+ */
 
 #include <IoLogging.h>
 #include <TextUtilities.h>
