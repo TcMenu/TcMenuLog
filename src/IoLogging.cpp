@@ -52,24 +52,6 @@ const char* prettyLevel(SerLoggingLevel level) {
     }
 }
 
-const char* niceErrorCode(tm_internal::TmErrorCode code) {
-    switch(code) {
-        case tm_internal::TM_INFO_REALLOC:
-            return "mem";
-        case tm_internal::TM_INFO_TASK_ALLOC:
-            return "alloc";
-        case tm_internal::TM_INFO_TASK_FREE:
-            return "free";
-        case tm_internal::TM_WARN_HIGH_SPINCOUNT:
-            return "spin";
-        case tm_internal::TM_ERROR_FULL:
-            return "full";
-        default:
-        case tm_internal::TM_ERROR_LOCK_FAILURE:
-            return "err";
-    }
-}
-
 #ifdef BUILD_FOR_PICO_CMAKE
 PrintfLogger LoggingPort;
 #endif

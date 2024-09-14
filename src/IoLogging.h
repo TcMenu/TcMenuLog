@@ -44,11 +44,13 @@ enum SerLoggingLevel {
     SER_LOG_EVERYTHING = 0xffff
 };
 
-#ifdef IO_LOGGING_DEBUG
-
 #if defined(__MBED__) && !defined(BUILD_FOR_PICO_CMAKE) && !defined(ARDUINO_ARCH_MBED)
 #define LOGGING_USES_MBED
+#elif !defined(BUILD_FOR_PICO_CMAKE)
+#include <Arduino.h>
 #endif
+
+#ifdef IO_LOGGING_DEBUG
 
 
 /** This uint16_t stores the enabled logging levels, don't use directly */
