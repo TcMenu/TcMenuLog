@@ -1,5 +1,6 @@
 
 #include <unity.h>
+#include <string.h>
 #include <TextUtilities.h>
 
 void testTcUtilIntegerConversions() {
