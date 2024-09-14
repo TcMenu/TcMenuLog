@@ -7,7 +7,6 @@
  */
 
 #include "IoLogging.h"
-#include "TaskPlatformDeps.h"
 
 #ifdef IO_LOGGING_DEBUG
 
@@ -69,12 +68,6 @@ const char* niceErrorCode(tm_internal::TmErrorCode code) {
         case tm_internal::TM_ERROR_LOCK_FAILURE:
             return "err";
     }
-}
-
-void startTaskManagerLogDelegate() {
-    tm_internal::setLoggingDelegate([](tm_internal::TmErrorCode errorCode, int task) {
-        serlogF3(SER_IOA_DEBUG, "TMLog ", niceErrorCode(errorCode), task);
-    });
 }
 
 #ifdef BUILD_FOR_PICO_CMAKE

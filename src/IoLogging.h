@@ -7,8 +7,6 @@
  * by un-commenting the define. Should NOT be used in production.
  */
 
-#include "PlatformDetermination.h"
-
 // START user adjustable section.
 
 // the below definition controls logging, enable logging by either defining this build flag
@@ -48,10 +46,15 @@ enum SerLoggingLevel {
 
 #ifdef IO_LOGGING_DEBUG
 
+#if defined(__MBED__) && !defined(BUILD_FOR_PICO_CMAKE) && !defined(ARDUINO_ARCH_MBED)
+#define LOGGING_USES_MBED
+#endif
+
+
 /** This uint16_t stores the enabled logging levels, don't use directly */
 extern unsigned int enabledLevels;
 
-#ifdef IOA_USE_MBED
+#ifdef LOGGING_USES_MBED
 
 #include "PrintCompat.h"
 #include <FileHandle.h>
@@ -125,13 +128,13 @@ unsigned long millis(); // available from task manager
 #else
 // Arduino:
 // You can change the logging serial port by defining LoggingPort to your chosen serial port.
+#include <Arduino.h>
 #ifndef LoggingPort
 #define LoggingPort Serial
 #endif
 #define IOLOG_START_SERIAL LoggingPort.begin(115200);
 #define IOLOG_MBED_PORT_IF_NEEDED(tx, rx)
 #endif
-
 
 const char* prettyLevel(SerLoggingLevel level);
 #define logTimeAndLevel(title, lvl) LoggingPort.print(millis());LoggingPort.print('-');LoggingPort.print(prettyLevel(lvl));LoggingPort.print(':');LoggingPort.print(title)
@@ -181,7 +184,8 @@ inline void serdebugHexDump(const char *title, const void* data, size_t len) { s
 #define serdebug3(x1, x2, x3) serlog3(SER_DEBUG, x1, x2, x3)
 #define serdebugHex(x1, x2) serlogHex(SER_DEBUG, x1, x2)
 
-void startTaskManagerLogDelegate();
+// no longer does anything but don't want code compilation errors.
+#define startTaskManagerLogDelegate()
 
 #else
 // all loging to no operations (commenting out the above define of IO_LOGGING_DEBUG to remove in production builds).

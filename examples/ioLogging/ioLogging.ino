@@ -33,8 +33,6 @@
  At runtime a level can be turned on/off using: void serEnableLevel(SerLoggingLevel level, bool active)
  */
 
-#include <TaskManagerIO.h>
-#include <IoAbstraction.h>
 #include <IoLogging.h>
 
 char sz[] = {"hello world"};
@@ -49,9 +47,6 @@ void setup() {
 
     Serial.println("Starting ioLogging example");
 
-    // we can use this to start the logging delegate that logs task manager notifications at IOA_DEBUG level
-    startTaskManagerLogDelegate();
-
     // enable an extra level
     serEnableLevel(SER_IOA_DEBUG, true);
 
@@ -59,28 +54,27 @@ void setup() {
     // with an integer second value.
     serdebugF2("In setup function - A0=", analogRead(A0));
 
-    taskManager.scheduleFixedRate(10, [] {
-        // write values to log in HEX - first parameter is wrapped in F(..) using the F variant
-        serlogFHex2(SER_DEBUG, "Two Values in hex: ", 0xFADE, 0xFACE);
-        serlogFHex(SER_DEBUG, "One Values in hex: ", 0xFADE);
-        serlogF4(SER_ERROR, "This is an error", 100, 200, 300);
-        serlogF3(SER_WARNING, "This is an warning", 100, 200);
+    // write values to log in HEX - first parameter is wrapped in F(..) using the F variant
+    serlogFHex2(SER_DEBUG, "Two Values in hex: ", 0xFADE, 0xFACE);
+    serlogFHex(SER_DEBUG, "One Values in hex: ", 0xFADE);
+    serlogF4(SER_ERROR, "This is an error", 100, 200, 300);
+    serlogF3(SER_WARNING, "This is an warning", 100, 200);
 
-        // log at SER_DEBUG, for legacy support
-        serdebugF2("Int value: ", 109298384L);
-        serdebugF2("Bool value: ", true);
+    // log at SER_DEBUG, for legacy support
+    serdebugF2("Int value: ", 109298384L);
+    serdebugF2("Bool value: ", true);
 
-        // here we hex dump an array
-        serlogHexDump(SER_DEBUG, "Hex dump", sz, sizeof sz);
+    // here we hex dump an array
+    serlogHexDump(SER_DEBUG, "Hex dump", sz, sizeof sz);
 
-        // the F variant always tries to use F(..) to save ram on the first parameter on AVR
-        serdebugF("String in flash");
-        
-        // this version does not use F(..) so we can pass RAM strings even on AVR
-        serdebug(sz); 
-    }, TIME_SECONDS);
+    // the F variant always tries to use F(..) to save ram on the first parameter on AVR
+    serdebugF("String in flash");
+
+    // this version does not use F(..) so we can pass RAM strings even on AVR
+    serdebug(sz);
 }
 
 void loop() {
-    taskManager.runLoop();
+    delay(1000);
+    serlogF2(SER_USER_1, "Millis: ", millis());
 }
