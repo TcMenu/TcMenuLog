@@ -91,7 +91,7 @@ void fastftoa(char* sz, float fl, int dp, int strSize) {
     // multiply it up by decimal places to turn it into an int, then we can present it as "[-]whole.fraction"
     auto whole = (int32_t)fl;
     fl = fl - float(whole);
-    auto fraction = int32_t(fl * (float)dpToDivisor(dp));
+    auto fraction = int32_t((fl) * (float)dpToDivisor(dp));
 
     if(neg) appendChar(sz, '-', strSize);
     fastltoa(sz, whole, 9, NOT_PADDED, strSize);
