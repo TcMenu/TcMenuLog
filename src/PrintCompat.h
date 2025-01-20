@@ -6,7 +6,7 @@
 #define IOA_PRINT_COMPAT_H
 
 #include <cstdlib>
-#include <TextUtilities.h>
+#include "TextUtilities.h"
 #include <inttypes.h>
 
 /**
