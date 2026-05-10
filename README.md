@@ -12,7 +12,7 @@ TcMenu organisation made this library available for you to use. It takes signifi
 
 This library provides logging facilities that are used by all our other libraries. You can consider this like a logging API with a simple implementation that backs onto the serial port by default.
 
-The library works on most Arduino devices, PicoSDK and mbed. You can see our library compatibility matrix: https://tcmenu.github.io/documentation/
+The library works on most Arduino devices, PicoSDK and mbed. You can see our library compatibility matrix: https://www.thecoderscorner.com/products/arduino-libraries/
 
 You can find examples packaged with it in the `examples` folder. The example should work on most platforms without needing changes. 
 
