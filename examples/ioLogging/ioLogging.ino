@@ -10,7 +10,7 @@
  * the logging is completely removed.
  *
  * Full documentation is here:
- * https://tcmenu.github.io/documentation/arduino-libraries//io-abstraction/arduino-logging-with-io-logging/
+ * https://www.thecoderscorner.com/products/arduino-libraries//io-abstraction/arduino-logging-with-io-logging/
  */
 
 /* The logging levels are below:
