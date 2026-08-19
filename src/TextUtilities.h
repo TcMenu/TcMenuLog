@@ -125,7 +125,7 @@ void intToHexString(char* buffer, size_t bufferSize, uint32_t input, int digits,
 inline float tcFltAbs(float f1) {
     return f1 > 0.0F ? f1 : -f1;
 }
-#if (defined(__MBED__) && !defined(ARDUINO_ARCH_MBED)) || defined(BUILD_FOR_PICO_CMAKE)
+#if (defined(__MBED__) && !defined(ARDUINO_ARCH_MBED)) || defined(BUILD_FOR_PICO_CMAKE) || defined(BUILD_FOR_STM32CUBE_CMAKE)
 #define strcmp_P(x,y) strcmp(x,y)
 #define strncpy_P(x,y,z) strncpy(x,y,z)
 #define strcpy_P(x,y) strcpy(x,y)

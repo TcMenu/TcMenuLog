@@ -83,4 +83,12 @@ unsigned long micros() {
 }
 #endif
 
+#ifdef STM_CUBE_LOGGING_ON
+
+StmCubeLogger LoggingPort;
+
+// For STM32Cube millis and micros must be exported from your own code, we cannot access them globally and
+// micros typically needs a timer function.
+#endif
+
 #endif

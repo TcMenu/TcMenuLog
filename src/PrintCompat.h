@@ -231,8 +231,6 @@ public:
     inline size_t write(int8_t c) { return write((uint8_t) c); }
 };
 
-//forward definition of yield() function
-void yield();
-#endif // IOA_USE_ARDUINO
+#endif
 
 #endif //IOA_PRINT_COMPAT_H
