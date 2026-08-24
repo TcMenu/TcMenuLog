@@ -1,5 +1,5 @@
-#ifndef _IO_LOGGING_H_
-#define _IO_LOGGING_H_
+#ifndef IO_LOGGING_H
+#define IO_LOGGING_H
 
 /**
  * @file IoLogging.h
@@ -44,7 +44,9 @@ enum SerLoggingLevel {
     SER_LOG_EVERYTHING = 0xffff
 };
 
-#if defined(__MBED__) && !defined(BUILD_FOR_PICO_CMAKE) && !defined(ARDUINO_ARCH_MBED)
+#if defined(TC_USER_SPECIFIED_LOGGER_INC)
+#include "TcCustomLogger.h"
+#elif defined(__MBED__) && !defined(BUILD_FOR_PICO_CMAKE) && !defined(ARDUINO_ARCH_MBED)
 #include "mbedPrinter.h"
 #elif defined(BUILD_FOR_STM32CUBE_CMAKE)
 #include "stmCubePrinter.h"
@@ -149,4 +151,4 @@ inline void serdebugHexDump(const char *title, const void* data, size_t len) { s
 #define serLevelEnabled(l) false
 #endif // IO_LOGGING_DEBUG
 
-#endif // _IO_LOGGING_H_
+#endif

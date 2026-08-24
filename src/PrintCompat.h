@@ -28,6 +28,7 @@
  */
 class Print {
 public:
+    virtual ~Print() = default;
     /**
      * this is the minimum that you must implement to provide the write interface. It writes a single character
      * to the underlying stream.

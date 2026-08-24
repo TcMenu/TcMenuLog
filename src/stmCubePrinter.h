@@ -27,7 +27,7 @@ extern uint32_t micros();
 class StmCubeLogger : public Print {
 public:
     explicit StmCubeLogger() = default;
-    virtual ~StmCubeLogger() = default;
+    ~StmCubeLogger() override = default;
 
     size_t write(uint8_t ch) override {
         HAL_UART_Transmit(loggingUart, &ch, 1, 100);
