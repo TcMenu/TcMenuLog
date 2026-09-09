@@ -97,20 +97,17 @@ void testTcUtilLimits() {
 }
 
 
-void setup() {
+void setUp() {}
+
+void tearDown() {}
+
+#if defined(BUILD_FOR_NATIVE_PLATFORM)
+int main(int argc, char **argv) {
     UNITY_BEGIN();
     RUN_TEST(testTcUtilHexCoversions);
     RUN_TEST(testTcUtilIntegerConversions);
     RUN_TEST(testTcUtilFloatConversions);
     RUN_TEST(testTcUtilLimits);
-    UNITY_END();
-}
-
-void loop() {}
-
-#if defined(BUILD_FOR_NATIVE_PLATFORM)
-int main(int argc, char **argv) {
-    setup();
-    return 0;
+    return UNITY_END();
 }
 #endif

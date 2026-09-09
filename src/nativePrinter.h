@@ -29,7 +29,7 @@ public:
 };
 extern NativeLogger LoggingPort;
 // a couple of definitions here to avoid including headers, F() macro not needed on mbed
-unsigned long millis();
+
 #define F(x) x
 #define IOLOG_MBED_PORT_IF_NEEDED(tx, rx)
 #define IOLOG_START_SERIAL
