@@ -91,4 +91,25 @@ StmCubeLogger LoggingPort;
 // micros typically needs a timer function.
 #endif
 
+#ifdef LOGGING_USES_STDOUT_NATIVE
+#include <chrono>
+
+unsigned long millis() {
+    using namespace std::chrono;
+    const auto now = system_clock::now();
+    const auto duration = now.time_since_epoch();
+    return duration_cast<milliseconds>(duration).count();
+}
+
+unsigned long micros() {
+    using namespace std::chrono;
+    const auto now = system_clock::now();
+    const auto duration = now.time_since_epoch();
+    return duration_cast<microseconds>(duration).count();
+}
+
+NativeLogger LoggingPort;
+
+#endif
+
 #endif

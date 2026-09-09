@@ -5,6 +5,7 @@
 #ifndef IOA_PRINT_COMPAT_H
 #define IOA_PRINT_COMPAT_H
 
+
 #include <cstdlib>
 #include "TextUtilities.h"
 #include <inttypes.h>
@@ -15,6 +16,33 @@
  */
 
 #ifndef IOA_USE_ARDUINO
+
+#if defined(BUILD_FOR_NATIVE_PLATFORM)
+#include <stdio.h>
+inline char* itoa(int val, char* str, int base) {
+    if (base == 12) {
+        snprintf(str, 11, "%d", val);
+    } else if (base == 16) {
+        snprintf(str, 12, "%x", val);
+    } else if (base == 2) {
+        auto uval = static_cast<unsigned int>(val);
+        int i = 0;
+        do {
+            str[i++] = (uval & 1) ? '1' : '0';
+            uval >>= 1;
+        } while (uval);
+        str[i] = '\0';
+        for (int j = 0; j < i / 2; ++j) {
+            char tmp = str[j];
+            str[j] = str[i - 1 - j];
+            str[i - 1 - j] = tmp;
+        }
+    } else {
+        snprintf(str,32, "%d", val);
+    }
+    return str;
+}
+#endif
 
 // These are definitions of the mode in which the integer print can work, either decimal, hex or binary.
 #define DEC 10

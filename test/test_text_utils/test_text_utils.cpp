@@ -2,6 +2,7 @@
 #include <unity.h>
 #include <string.h>
 #include <TextUtilities.h>
+#include <IoLogging.h>
 
 void testTcUtilIntegerConversions() {
         char szBuffer[20];
@@ -57,7 +58,7 @@ void testTcUtilHexCoversions() {
 }
 
 void testTcUtilFloatConversions() {
-    char szBuffer[20];
+    char szBuffer[20] = {};
 
     fastftoa(szBuffer, 12.30F, 4, sizeof szBuffer);
     TEST_ASSERT_EQUAL_STRING("12.3000", szBuffer);
@@ -106,3 +107,10 @@ void setup() {
 }
 
 void loop() {}
+
+#if defined(BUILD_FOR_NATIVE_PLATFORM)
+int main(int argc, char **argv) {
+    setup();
+    return 0;
+}
+#endif

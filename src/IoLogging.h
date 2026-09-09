@@ -52,6 +52,8 @@ enum SerLoggingLevel {
 #include "stmCubePrinter.h"
 #elif defined(BUILD_FOR_PICO_CMAKE)
 #include "picoPrinter.h"
+#elif defined(BUILD_FOR_NATIVE_PLATFORM)
+#include "nativePrinter.h"
 #else
 // Arduino:
 // You can change the logging serial port by defining LoggingPort to your chosen serial port.
